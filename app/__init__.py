@@ -14,9 +14,9 @@ def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
-        # "SQLALCHEMY_DATABASE_URI")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("RENDER_DB_URI")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("RENDER_DB_URI")
 
     from app.models.data import Data
     from app.models.job import Job
@@ -24,12 +24,12 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Register Blueprints here
-    from .routes.data_routes import data_bp
-    from .routes.jobs_routes import jobs_bp
+    # # Register Blueprints here
+    # from .routes.data_routes import data_bp
+    # from .routes.jobs_routes import jobs_bp
 
-    app.register_blueprint(data_bp)
-    app.register_blueprint(jobs_bp)
+    # app.register_blueprint(data_bp)
+    # app.register_blueprint(jobs_bp)
 
 
 
