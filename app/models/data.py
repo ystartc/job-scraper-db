@@ -13,11 +13,11 @@ class Data (db.Model):
     
     def to_dict(self):
         return {
-                'id': self.id,
-                'html': self.html,
-                'status': self.status,
-                'url': self.url,
-                'fetch_date': self.fetch_date
+            'id': self.id,
+            'html': self.html,
+            'status': self.status,
+            'url': self.url,
+            'fetch_date': self.fetch_date
         }
 
     @classmethod
@@ -27,9 +27,10 @@ class Data (db.Model):
     @classmethod
     def from_dict(cls, request_body):
         data = cls(
-                    html=request_body['html'],
-                    status=request_body['status'],
-                    url=request_body['url'],
-                    fetch_date=request_body['fetch_date']
-                    )
+            html=request_body['html'],
+            status=request_body['status'],
+            url=request_body['url'],
+            fetch_date=request_body['fetch_date']
+        )
+        
         return data
