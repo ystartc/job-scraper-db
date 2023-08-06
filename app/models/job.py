@@ -3,7 +3,8 @@ from app import db
 
 class Job (db.Model):
     __tablename__ = 'jobs'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    job_id = db.Column(db.Integer)
     title = db.Column(db.String)
     fetch_date = db.Column(db.Date, default=func.now())
     company = db.Column(db.String)
