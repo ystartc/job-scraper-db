@@ -25,12 +25,11 @@ def create_app():
     migrate.init_app(app, db)
 
     # # Register Blueprints here
-    # from .routes.data_routes import data_bp
-    # from .routes.jobs_routes import jobs_bp
+    from .routes.data_route import data_bp
+    from .routes.jobs_route import jobs_bp
 
-    # app.register_blueprint(data_bp)
-    # app.register_blueprint(jobs_bp)
-
+    app.register_blueprint(data_bp)
+    app.register_blueprint(jobs_bp)
 
 
     CORS(app)
