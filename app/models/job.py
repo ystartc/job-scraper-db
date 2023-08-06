@@ -10,7 +10,6 @@ class Job (db.Model):
     location = db.Column(db.String)
     about = db.Column(db.Text)
     salary = db.Column(db.String, nullable=True)
-    fetch_date = db.Column(db.Date, default=func.now())
     data_id = db.Column(db.Integer, db.ForeignKey('data.id'))
     data = db.relationship('Data', back_populates='jobs')
     
