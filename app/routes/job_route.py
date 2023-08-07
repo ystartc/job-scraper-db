@@ -16,3 +16,14 @@ def create_job():
     db.session.commit()
     
     return new_entry.to_dict(), 201
+
+@jobs_bp.route('', methods=['GET'])
+def get_jobs():
+    title_query = request.args.get('title')
+    
+    if title_query:
+        jobs = Job.query.filter(Job.title.ilike('%'+title_query.strip()+'%'))
+    else:
+        jobs = Job.query.all()
+    
+    return jsonify([entry.to_dict() for entry in jobs]), 200

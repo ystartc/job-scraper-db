@@ -19,3 +19,14 @@ def create_entry():
     db.session.commit()
     
     return new_entry.to_dict(), 201
+
+@data_bp.route('', methods=['GET'])
+def get_data():
+    status_query = request.args.get('status')
+    
+    if status_query:
+        data = Data.query.filter(Data.status.ilike('%'+status_query.strip()+'%'))
+    else:
+        data = Data.query.all()
+    
+    return jsonify([entry.to_dict() for entry in data]), 200
