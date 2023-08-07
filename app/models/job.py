@@ -42,6 +42,7 @@ class Job (db.Model):
             company=request_body['company'],
             location=request_body['location'],
             about=request_body['about'],
+            data_id=request_body['data_id'],
             salary=request_body.get('salary', None)
         )
         

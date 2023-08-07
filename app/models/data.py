@@ -1,4 +1,4 @@
-from sqlalchemy import func
+from sqlalchemy.sql import func
 from app import db
 
 class Data (db.Model):
