@@ -4,10 +4,10 @@ from app import db
 class Job (db.Model):
     __tablename__ = 'jobs'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    job_id = db.Column(db.Integer)
-    title = db.Column(db.String)
-    company = db.Column(db.String)
-    location = db.Column(db.String)
+    job_id = db.Column(db.String(20))
+    title = db.Column(db.String(30))
+    company = db.Column(db.String(30))
+    location = db.Column(db.String(20))
     about = db.Column(db.Text)
     salary = db.Column(db.String, nullable=True)
     data_id = db.Column(db.Integer, db.ForeignKey('data.id'))
