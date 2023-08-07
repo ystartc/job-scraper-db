@@ -22,7 +22,7 @@ class Job (db.Model):
             'location': self.location,
             'about': self.about,
             'fetch_date': self.data.fetch_date,
-            'data_id': self.data_id,
+            'data_id': self.data.id,
         }
         
         if self.salary:
@@ -42,8 +42,8 @@ class Job (db.Model):
             company=request_body['company'],
             location=request_body['location'],
             about=request_body['about'],
-            data_id=request_body['data_id'],
-            salary=request_body.get('salary', None)
+            salary=request_body.get('salary', None),
+            data_id=request_body['data_id']
         )
         
         return job

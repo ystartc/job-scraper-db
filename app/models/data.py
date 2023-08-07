@@ -28,8 +28,7 @@ class Data (db.Model):
         data = cls(
             html=request_body['html'],
             status=request_body['status'],
-            url=request_body['url'],
-            fetch_date=request_body['fetch_date']
+            url=request_body['url']
         )
         
         return data
