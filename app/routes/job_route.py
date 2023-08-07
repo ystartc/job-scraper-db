@@ -27,3 +27,10 @@ def get_jobs():
         jobs = Job.query.all()
     
     return jsonify([entry.to_dict() for entry in jobs]), 200
+
+@jobs_bp.route('/delete_all', methods=['DELETE'])
+def delete_all_jobs():
+    Job.query.delete()
+    db.session.commit()
+    
+    return {'details': 'All jobs successfully deleted'}, 200

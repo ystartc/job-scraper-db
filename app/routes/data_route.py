@@ -30,3 +30,10 @@ def get_data():
         data = Data.query.all()
     
     return jsonify([entry.to_dict() for entry in data]), 200
+
+@data_bp.route('/delete_all', methods=['DELETE'])
+def delete_all_data():
+    Data.query.delete()
+    db.session.commit()
+    
+    return {'details': 'All data successfully deleted'}, 200
