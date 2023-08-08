@@ -10,6 +10,10 @@ def create_job():
     request_body = request.get_json()
     valid.validate_entry(Job, request_body)
     
+    job_id = Job.query.filter_by(job_id=request_body['job_id']).first()
+    if job_id:
+        return {'msg': f'Job with job_id {job_id} already exist'}, 200
+    
     new_entry = Job.from_dict(request_body)
     
     db.session.add(new_entry)
