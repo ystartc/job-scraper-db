@@ -22,7 +22,7 @@ def create_app():
 
     #from app.models.data import Data
     #from app.models.job import Job
-
+    app.logger.error("Initializing db with flask app")
     logging.info("Initializing db with the flask app")
     db.init_app(app)
     logging.info("Migrating db")
