@@ -26,7 +26,7 @@ def create_app():
     app.logger.info("Initializing db with flask app")
     #logging.info("Initializing db with the flask app")
     db.init_app(app)
-    app.logger("Dropping all tables")
+    app.logger.info("Dropping all tables")
     db.drop_all()
     app.logger.info("Migrating db")
     #logging.info("Migrating db")
