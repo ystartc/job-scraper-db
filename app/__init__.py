@@ -20,14 +20,17 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLY_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
-    #from app.models.data import Data
-    #from app.models.job import Job
-    app.logger.error("Initializing db with flask app")
-    logging.info("Initializing db with the flask app")
+    from app.models.data import Data
+    from app.models.job import Job
+    
+    app.logger.info("Initializing db with flask app")
+    #logging.info("Initializing db with the flask app")
     db.init_app(app)
-    logging.info("Migrating db")
+    app.logger.info("Migrating db")
+    #logging.info("Migrating db")
     migrate.init_app(app, db)
-    logging.info("DB preparation done.")
+    app.logger.info("DB prep is done.")
+    #logging.info("DB preparation done.")
 
     # # Register Blueprints here
     from .routes.data_route import data_bp
