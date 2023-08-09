@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 from flask_cors import CORS
 import os
+import logging
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -19,11 +20,14 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLY_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
-    from app.models.data import Data
-    from app.models.job import Job
+    #from app.models.data import Data
+    #from app.models.job import Job
 
+    logging.info("Initializing db with the flask app")
     db.init_app(app)
+    logging.info("Migrating db")
     migrate.init_app(app, db)
+    logging.info("DB preparation done.")
 
     # # Register Blueprints here
     from .routes.data_route import data_bp
