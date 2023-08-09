@@ -29,6 +29,10 @@ def create_app():
     app.logger.info("Dropping all tables")
     with app.app_context():
         db.drop_all()
+        app.logger.info("Creating all tables")
+        db.create_all()
+        app.logger.info(repr(db.metadata))
+
     app.logger.info("Migrating db")
     #logging.info("Migrating db")
     migrate.init_app(app, db)
