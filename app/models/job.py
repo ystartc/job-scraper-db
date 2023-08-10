@@ -5,9 +5,9 @@ class Job (db.Model):
     __tablename__ = 'jobs'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     job_id = db.Column(db.String(20))
-    title = db.Column(db.String(30))
-    company = db.Column(db.String(30))
-    location = db.Column(db.String(20))
+    title = db.Column(db.String(100))
+    company = db.Column(db.String(100))
+    location = db.Column(db.String(100))
     about = db.Column(db.Text)
     salary = db.Column(db.String, nullable=True)
     data_id = db.Column(db.Integer, db.ForeignKey('data.id'))
