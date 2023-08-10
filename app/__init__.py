@@ -22,8 +22,11 @@ def create_app():
 
     from app.models.data import Data
     from app.models.job import Job
+    
     app.logger.setLevel(logging.DEBUG)
-    app.logger.info("Initializing db with flask app")
+    logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+    
+    # app.logger.info("Initializing db with flask app")
     #logging.info("Initializing db with the flask app")
     db.init_app(app)
     # app.logger.info("Dropping all tables")
@@ -33,11 +36,12 @@ def create_app():
     #     db.create_all()
     #     app.logger.info(repr(db.metadata))
 
-    app.logger.info("Migrating db")
+    # app.logger.info("Migrating db")
     #logging.info("Migrating db")
     migrate.init_app(app, db)
+    
     app.logger.info("DB prep is done.")
-    #logging.info("DB preparation done.")
+    logging.info("DB preparation done.")
 
     # # Register Blueprints here
     from .routes.data_route import data_bp
