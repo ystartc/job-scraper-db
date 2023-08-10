@@ -1,4 +1,5 @@
 from sqlalchemy.sql import func
+from datetime import datetime
 from app import db
 
 class Data (db.Model):
@@ -31,7 +32,7 @@ class Data (db.Model):
             html=request_body['html'],
             status=request_body['status'],
             url=request_body['url'],
-            fetch_date=request_body['fetch_date']
+            fetch_date=datetime.strptime(request_body['fetch_date'], '%d %b %Y').date()
         )
         else:
             data = cls(
