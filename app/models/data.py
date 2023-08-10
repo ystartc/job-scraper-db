@@ -27,7 +27,7 @@ class Data (db.Model):
     
     @classmethod
     def from_dict(cls, request_body):
-        if request_body['fetch_date']:
+        if 'fetch_date' in request_body:
             data = cls(
             html=request_body['html'],
             status=request_body['status'],
