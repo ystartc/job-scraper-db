@@ -17,7 +17,7 @@ def create_job():
     new_entry = Job.from_dict(request_body)
     
     db.session.add(new_entry)
-    db.session.commit()
+    db.session.commit()fksdjflks
     
     return new_entry.to_dict(), 201
 
