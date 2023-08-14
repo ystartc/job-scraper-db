@@ -33,7 +33,8 @@ def get_jobs():
     # posted_since = datetime.utcnow() - timedelta(days=days_ago)
     # Query the database for jobs posted since the specified number of days ago
     # jobs = Job.query.filter(Job.posted_date >= posted_since).all()
-
+    from sqlalchemy.orm import joinedload
+    from app.models.data import Data
     if title_query:
         jobs = Job.query.filter(Job.title.ilike('%'+title_query.strip()+'%')).order_by(Job.data.fetch_date.desc())
     elif title_query and location_query:
@@ -60,7 +61,14 @@ def get_jobs():
     # elif posted_since:
     #     Job.query.filter(Job.posted_date >= posted_since).order_by(Job.data.fetch_date.desc()).all()
     else:
-        jobs = Job.query.order_by(Job.data.fetch_date.desc()).all()
+        # jobs = Job.query.order_by(Job.data.fetch_date.desc()).all()
+        jobs = (
+            db.session.query(Job)
+            .join(Data)
+            .options(joinedload(Job.data))  # Ensure Data is loaded along with Job
+            .order_by(Data.fetch_date.desc())
+            .all()
+)
     
     return jsonify([entry.to_dict() for entry in jobs]), 200
 
