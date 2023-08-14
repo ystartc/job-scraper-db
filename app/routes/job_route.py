@@ -30,9 +30,7 @@ def get_jobs():
     title_query = request.args.get('title')
     location_query = request.args.get('location')
     company_query = request.args.get('company')
-
     days_ago = request.args.get('days_ago', type=int)
-    posted_since = datetime.utcnow() - timedelta(days=days_ago)
     
     # Query the database for jobs posted since the specified number of days ago
     # jobs = Job.query.filter(Job.posted_date >= posted_since).all()
@@ -80,8 +78,8 @@ def get_jobs():
         query = query.filter(Job.location.ilike('%'+location_query.strip()+'%'))
     if company_query:
         query = query.filter(Job.company.ilike('%'+company_query.strip()+'%'))
-    if posted_since:
-        posted_date = datetime.utcnow() - timedelta(days=posted_since)
+    if days_ago:
+        posted_date = datetime.utcnow() - timedelta(days=int(days_ago))
         # query = query.filter(Job.data.fetch_date <= posted_date)
         # posted_date = datetime.utcnow() - timedelta(days=posted_since)
         
