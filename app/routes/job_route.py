@@ -29,8 +29,8 @@ def get_jobs():
     location_query = request.args.get('location')
     company_query = request.args.get('company')
     
-    days_ago = request.args.get('days_ago', type=int)
-    posted_since = datetime.utcnow() - timedelta(days=days_ago)
+    # days_ago = request.args.get('days_ago', type=int)
+    # posted_since = datetime.utcnow() - timedelta(days=days_ago)
     # Query the database for jobs posted since the specified number of days ago
     # jobs = Job.query.filter(Job.posted_date >= posted_since).all()
 
@@ -40,10 +40,10 @@ def get_jobs():
         jobs = Job.query.filter(Job.title.ilike('%'+title_query.strip()+'%'), 
                                 Job.location.ilike('%'+location_query.strip()+'%')
                                 ).order_by(Job.data.fetch_date.desc())
-    elif title_query and location_query and posted_since:
+    elif title_query and location_query: #and posted_since:
         jobs = Job.query.filter(Job.title.ilike('%'+title_query.strip()+'%'), 
                                 Job.location.ilike('%'+location_query.strip()+'%'),
-                                Job.data.fetch_date >= posted_since
+                                # Job.data.fetch_date >= posted_since
                                 ).order_by(Job.data.fetch_date.desc())
     if company_query:
         jobs = Job.query.filter(Job.company.ilike('%'+company_query.strip()+'%')).order_by(Job.data.fetch_date.desc())
@@ -51,14 +51,14 @@ def get_jobs():
         jobs = Job.query.filter(Job.company.ilike('%'+company_query.strip()+'%'), 
                                 Job.location.ilike('%'+location_query.strip()+'%')
                                 ).order_by(Job.data.fetch_date.desc())
-    elif company_query and location_query and posted_since:
+    elif company_query and location_query:# and posted_since:
         jobs = Job.query.filter(Job.company.ilike('%'+company_query.strip()+'%'), 
                                 Job.location.ilike('%'+location_query.strip()+'%'),
-                                Job.data.fetch_date >= posted_since
+                                # Job.data.fetch_date >= posted_since
                                 # Job.data.fetch_date.ilike('%'+fetched.strip()+'%')
                                 ).order_by(Job.data.fetch_date.desc())
-    elif posted_since:
-        Job.query.filter(Job.posted_date >= posted_since).order_by(Job.data.fetch_date.desc()).all()
+    # elif posted_since:
+    #     Job.query.filter(Job.posted_date >= posted_since).order_by(Job.data.fetch_date.desc()).all()
     else:
         jobs = Job.query.all().order_by(Job.data.fetch_date.desc())
     
