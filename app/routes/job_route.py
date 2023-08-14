@@ -60,7 +60,7 @@ def get_jobs():
     # elif posted_since:
     #     Job.query.filter(Job.posted_date >= posted_since).order_by(Job.data.fetch_date.desc()).all()
     else:
-        jobs = Job.query.all().order_by(Job.data.fetch_date.desc())
+        jobs = Job.query.order_by(Job.data.fetch_date.desc()).all()
     
     return jsonify([entry.to_dict() for entry in jobs]), 200
 
