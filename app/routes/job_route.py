@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from sqlalchemy.sql import func
 from datetime import datetime, timedelta
 from sqlalchemy.orm import joinedload
 from app.models.data import Data
@@ -30,9 +31,9 @@ def get_jobs():
     location_query = request.args.get('location')
     company_query = request.args.get('company')
     days_ago = request.args.get('days_ago', type=int)
-    
-    query = db.session.query(Job).join(Data).options(joinedload(Job.data)).order_by(Data.fetch_date.desc())
 
+    query = db.session.query(Job).join(Data).options(joinedload(Job.data)).order_by(Data.fetch_date.desc())
+    
     if title_query:
         query = query.filter(Job.title.ilike('%'+title_query.strip()+'%'))
     if location_query:
@@ -40,16 +41,14 @@ def get_jobs():
     if company_query:
         query = query.filter(Job.company.ilike('%'+company_query.strip()+'%'))
     if days_ago:
-        posted_date = datetime.utcnow() - timedelta(days=int(days_ago))
-        
-        # Convert to the same format as the fetch_date in the database
-        posted_date_str = posted_date.strftime('%a, %d %b %Y %H:%M:%S GMT')
-        query = query.filter(Data.fetch_date >= posted_date_str)
+        posted_date = func.current_date() - timedelta(days=int(days_ago))
+    
+    # Convert to the same format as the fetch_date in the database
+    posted_date_str = posted_date.strftime('%a, %d %b %Y %H:%M:%S GMT')
+    query = query.filter(Data.fetch_date >= posted_date_str)
 
-
-    # Execute the final query
     jobs = query.all()
-
+    
     return jsonify([entry.to_dict() for entry in jobs]), 200
 
 @jobs_bp.route('/delete_all', methods=['DELETE'])
