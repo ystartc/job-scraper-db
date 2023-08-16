@@ -42,10 +42,9 @@ def get_jobs():
         query = query.filter(Job.company.ilike('%'+company_query.strip()+'%'))
     if days_ago:
         posted_date = func.current_date() - timedelta(days=int(days_ago))
-    
-    # Convert to the same format as the fetch_date in the database
-    posted_date_str = posted_date.strftime('%a, %d %b %Y %H:%M:%S GMT')
-    query = query.filter(Data.fetch_date >= posted_date_str)
+        # Convert to the same format as the fetch_date in the database
+        # posted_date_str = posted_date.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        query = query.filter(Data.fetch_date >= posted_date)
 
     jobs = query.all()
     
