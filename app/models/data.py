@@ -8,7 +8,7 @@ class Data (db.Model):
     html = db.Column(db.Text)
     status = db.Column(db.String)
     url = db.Column(db.String)
-    # fetch_date = db.Column(db.Date, default=func.current_date())
+    fetch_date = db.Column(db.Date, default=func.current_date())
     fetch_date = db.Column(db.Date, default=None, nullable=True)
     jobs = db.relationship('Job', back_populates='data', lazy=True)
     
