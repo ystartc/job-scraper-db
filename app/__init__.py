@@ -17,8 +17,9 @@ def create_app():
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     #     "SQLALCHEMY_DATABASE_URI")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLY_DATABASE_URI")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLY_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("AWS_RDS_URI")
 
     from app.models.data import Data
     from app.models.job import Job
