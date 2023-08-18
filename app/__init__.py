@@ -14,12 +14,12 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("RENDER_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     #     "SQLALCHEMY_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLY_DATABASE_URI")
     # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("AWS_RDS_URI")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("AWS_RDS_URI")
 
     from app.models.data import Data
     from app.models.job import Job
