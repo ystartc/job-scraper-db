@@ -53,6 +53,3 @@ def create_app():
 
     CORS(app)
     return app
-
-if __name__ == "__main__":
-	create_app()
